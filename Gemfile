@@ -1,4 +1,4 @@
 gem 'sinatra'
-gem 'pry'
-gem 'pony'
-gem 'dotenv'
+gem 'rackup'
+gem 'sequel'
+gem 'sqlite3'
