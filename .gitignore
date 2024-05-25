@@ -2,3 +2,5 @@ List all the directories/files here that you don't want to be committed to githu
 (i.e. anything with secrets in)
 
 .env
+*.lock
+.DS_STORE
