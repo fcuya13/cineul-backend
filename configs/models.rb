@@ -28,5 +28,7 @@ end
 class Genero < Sequel::Model(DB[:genero])
   one_to_many :pelicula_generos
   many_to_many :peliculas, join_table: :pelicula_genero, right_key: :pelicula_id
-end# frozen_string_literal: true
+end
 
+class Usuario < Sequel::Model(DB[:usuario])
+end
