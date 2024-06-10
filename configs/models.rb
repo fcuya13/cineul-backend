@@ -30,5 +30,10 @@ class Genero < Sequel::Model(DB[:genero])
   many_to_many :peliculas, join_table: :pelicula_genero, right_key: :pelicula_id
 end
 
+class Funcion < Sequel::Model(DB[:funciones])
+  many_to_one :pelicula
+  many_to_one :sala
+end
+
 class Usuario < Sequel::Model(DB[:usuario])
 end
