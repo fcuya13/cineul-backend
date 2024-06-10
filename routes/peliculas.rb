@@ -1,8 +1,11 @@
 require 'sinatra'
 
+#TODO si recibo query param que retorne todo
 get '/peliculas' do
   content_type :json
+  peliculas = nil
 
+  """find
   peliculas = Pelicula.all.map do |pelicula|
     {
       id: pelicula.id,
@@ -14,5 +17,14 @@ get '/peliculas' do
       generos: pelicula.genero.map(&:nombre)
     }
   end
+  """
+  peliculas = Pelicula.all.map do |pelicula|
+    {
+      id: pelicula.id,
+      imagen_url: pelicula.imagen_url
+    }
+  end
+  
   peliculas.to_json
 end
+
