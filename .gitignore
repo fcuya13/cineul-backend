@@ -4,3 +4,4 @@ List all the directories/files here that you don't want to be committed to githu
 .env
 *.lock
 .DS_STORE
+/swagger/node_modules/
