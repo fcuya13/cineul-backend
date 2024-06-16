@@ -13,7 +13,7 @@ post '/user/validate' do
 
     if record then
       if record[:password] == password then
-        resp[:message] = 'Usuario encontrado'
+        resp[:message] = 'Usuario encontrado - Ingreso Exitoso'
         resp[:data] = record[:id]
         status = 200
       else
