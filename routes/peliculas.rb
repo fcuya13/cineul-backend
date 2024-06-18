@@ -15,6 +15,7 @@ get '/peliculas' do
       funciones = Funcion.where(pelicula_id: pelicula.id).map do |funcion|
         {
           id: funcion.id,
+          nombre_sala: funcion.sala.nombre,
           time: funcion.fecha_hora,
           # Add other relevant function details here
         }

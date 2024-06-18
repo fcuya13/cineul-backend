@@ -13,6 +13,7 @@ get '/usuarios/historial/:id' do
       f.fecha_hora,
       s.nombre AS sala_nombre,
       s.direccion AS sala_direccion,
+      a.id as asiento_id,
       a.fila,
       a.columna,
       pr.nombre AS producto_nombre,
@@ -44,7 +45,7 @@ get '/usuarios/historial/:id' do
         nombre: detalles.first[:sala_nombre],
         direccion: detalles.first[:sala_direccion]
       },
-      asientos: detalles.map { |d| { fila: d[:fila], columna: d[:columna] } }.uniq,
+      asientos: detalles.map { |d| {id: d[:asiento_id], fila: d[:fila], columna: d[:columna] } }.uniq,
       productos: detalles.select { |d| d[:producto_nombre] }.map do |d|
         {
           nombre: d[:producto_nombre],

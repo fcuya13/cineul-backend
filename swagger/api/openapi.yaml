@@ -1,15 +1,17 @@
 openapi: 3.0.0
 info:
-  title: API de Usuarios y Películas
+  title: CineULima API
   description: Documentación de la API de Cine ULima - Progra Movil
   version: 1.0.0
 servers:
-- url: http://localhost:4567
+- url: https://humble-disco-jx4w6xvvvxr25g59-4567.app.github.dev
 tags:
 - name: auth
 - name: peliculas
 - name: salas
 - name: usuarios
+- name: productos
+- name: reserva
 paths:
   /user/validate:
     post:
@@ -290,6 +292,218 @@ paths:
                     type: string
                   mensaje:
                     type: string
+  /usuarios/historial/{id}:
+    get:
+      tags: 
+        - usuarios
+      summary: Obtener el historial de compras de un usuario por ID
+      description: Recupera el historial de reservas y compras de un usuario específico, incluyendo detalles de las películas, asientos y productos comprados.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Historial de compras del usuario
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    reserva_id:
+                      type: integer
+                      example: 123
+                    pelicula:
+                      type: string
+                      example: "El Señor de los Anillos"
+                    fecha_funcion:
+                      type: string
+                      format: date-time
+                      example: "2023-05-18T20:00:00Z"
+                    sala:
+                      type: object
+                      properties:
+                        nombre:
+                          type: string
+                          example: "Sala 1"
+                        direccion:
+                          type: string
+                          example: "Av. Principal 123"
+                    asientos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          fila:
+                            type: string
+                            example: "A"
+                          columna:
+                            type: integer
+                            example: 5
+                    productos:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          nombre:
+                            type: string
+                            example: "Palomitas"
+                          cantidad:
+                            type: integer
+                            example: 2
+                          precio:
+                            type: number
+                            format: float
+                            example: 5.50
+                          total:
+                            type: number
+                            format: float
+                            example: 11.00
+                    gasto_total:
+                      type: number
+                      format: float
+                      example: 20.50
+  /home:
+    get:
+      tags:
+        - peliculas
+      summary: Obtener la lista de películas de la HomePage
+      description: Recupera una lista de todas las películas, incluyendo sus géneros.
+      responses:
+        '200':
+          description: Lista de películas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    titulo:
+                      type: string
+                      example: "Inception"
+                    imagen_url:
+                      type: string
+                      example: "https://example.com/inception.jpg"
+                    generos:
+                      type: array
+                      items:
+                        type: string
+                      example: ["Acción", "Ciencia Ficción"]
+  /reservas:
+    post:
+      tags:
+        - reserva
+      summary: Crear una nueva reserva
+      description: Crea una nueva reserva para una función específica, incluyendo la selección de asientos y productos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                funcion_id:
+                  type: integer
+                  example: 10
+                asientos:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 2, 3]
+                productos:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 5
+                      cantidad:
+                        type: integer
+                        example: 2
+      responses:
+        '200':
+          description: Reserva creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Reserva creada exitosamente"
+        '400':
+          description: Asientos no disponibles o solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Asientos no disponibles"
+                  asientos_no_disponibles:
+                    type: array
+                    items:
+                      type: integer
+                    example: [4, 5]
+        '404':
+          description: Función no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Función no encontrada"
+  /productos:
+    get:
+      tags:
+        - productos
+      summary: Obtener la lista de productos
+      description: Recupera una lista de todos los productos disponibles.
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    nombre:
+                      type: string
+                      example: "Palomitas"
+                    descripcion:
+                      type: string
+                      example: "Palomitas de maíz con mantequilla"
+                    precio:
+                      type: number
+                      format: float
+                      example: 5.50
+                    stock:
+                      type: integer
+                      example: 100
 
 components:
   schemas:
@@ -476,3 +690,4 @@ components:
       example:
         id: 6
         time: 2000-01-23T04:56:07.000+00:00
+  

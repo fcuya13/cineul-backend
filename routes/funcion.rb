@@ -11,7 +11,6 @@ get '/funciones' do
         f.sala_id,
         f.fecha_hora,
         p.titulo AS pelicula_titulo,
-        p.sinopsis AS pelicula_sinopsis,
         s.nombre AS sala_nombre,
         s.direccion AS sala_direccion
       FROM
