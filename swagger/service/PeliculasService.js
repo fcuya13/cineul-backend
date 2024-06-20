@@ -11,15 +11,20 @@
 exports.peliculasGET = function(id) {
   return new Promise(function(resolve, reject) {
     var examples = {};
-    examples['application/json'] = {
+    examples['application/json'] = 
+    {
   "actores" : [ "actores", "actores" ],
-  "funciones" : [ {
+  
+  "funciones" : [ 
+    {
     "id" : 6,
     "time" : "2000-01-23T04:56:07.000+00:00"
-  }, {
+  }, 
+  {
     "id" : 6,
     "time" : "2000-01-23T04:56:07.000+00:00"
-  } ],
+  } 
+],
   "imagen_url" : "imagen_url",
   "generos" : [ "generos", "generos" ],
   "titulo" : "titulo",

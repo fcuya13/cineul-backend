@@ -4,7 +4,7 @@ info:
   description: Documentación de la API de Cine ULima - Progra Movil
   version: 1.0.0
 servers:
-- url: https://humble-disco-jx4w6xvvvxr25g59-4567.app.github.dev
+- url: http://localhost:4567
 tags:
 - name: auth
 - name: peliculas
@@ -149,9 +149,18 @@ paths:
       summary: Obtener información de salas
       description: Obtiene información de todas las salas
       operationId: salasGET
+      parameters:
+      - name: id
+        in: query
+        description: ID de la sala
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
-          description: Lista de salas
+          description: Información de salas
           content:
             application/json:
               schema:
@@ -401,6 +410,37 @@ paths:
                       items:
                         type: string
                       example: ["Acción", "Ciencia Ficción"]
+  /homeSala:
+    get:
+      tags:
+        - salas
+      summary: Obtener la lista de películas de la Salas
+      description: Recupera una lista de todas las salas
+      responses:
+        '200':
+          description: Lista de salas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    nombre_sala:
+                      type: string
+                      example: "Pabellon F1"
+                    imagen_url:
+                      type: string
+                      example: "https://example.com/inception.jpg"
+                    direccion:
+                      type: array
+                      items:
+                        type: string
+                      example: "Av. Club Golf los Incas 148, Surco"
+
   /reservas:
     post:
       tags:
@@ -548,11 +588,11 @@ components:
       properties:
         id:
           type: integer
-        nombre:
-          type: string
-        direccion:
+        nombre_sala:
           type: string
         imagen_url:
+          type: string
+        direccion:
           type: string
     Funcion:
       type: object
@@ -668,18 +708,33 @@ components:
       properties:
         id:
           type: integer
-        nombre:
-          type: string
-        direccion:
+        nombre_sala:
           type: string
         imagen_url:
           type: string
+        direccion:
+          type: string
+        funciones:
+          type: array
+          items:
+            $ref: '#/components/schemas/inline_response_200_2_funciones'
       example:
         direccion: direccion
         imagen_url: imagen_url
         id: 0
         nombre: nombre
     inline_response_200_1_funciones:
+      type: object
+      properties:
+        id:
+          type: integer
+        time:
+          type: string
+          format: date-time
+      example:
+        id: 6
+        time: 2000-01-23T04:56:07.000+00:00
+    inline_response_200_2_funciones:
       type: object
       properties:
         id:
