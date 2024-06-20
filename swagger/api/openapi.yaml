@@ -4,7 +4,7 @@ info:
   description: Documentación de la API de Cine ULima - Progra Movil
   version: 1.0.0
 servers:
-- url: http://localhost:4567
+- url: https://humble-disco-jx4w6xvvvxr25g59-4567.app.github.dev
 tags:
 - name: auth
 - name: peliculas
@@ -410,36 +410,7 @@ paths:
                       items:
                         type: string
                       example: ["Acción", "Ciencia Ficción"]
-  /homeSala:
-    get:
-      tags:
-        - salas
-      summary: Obtener la lista de películas de la Salas
-      description: Recupera una lista de todas las salas
-      responses:
-        '200':
-          description: Lista de salas
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1
-                    nombre_sala:
-                      type: string
-                      example: "Pabellon F1"
-                    imagen_url:
-                      type: string
-                      example: "https://example.com/inception.jpg"
-                    direccion:
-                      type: array
-                      items:
-                        type: string
-                      example: "Av. Club Golf los Incas 148, Surco"
+
 
   /reservas:
     post:
