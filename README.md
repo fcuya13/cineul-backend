@@ -1,18 +1,29 @@
-# Readme
-This is a basic sinatra template, which you can use as a base for your projects.
+# Backend Cine ULima
 
-Fork this app onto your github account using the 'fork' button in the top right, from there
-clone it onto your machine either with the command line or github desktop.
+![Home](diagrams/api.png)
 
-### Running the app
-From the root off the app type `ruby app.rb`
 
-### Routing
-Routes should be added to the app.rb file
+## Instalación
 
-### Views
-Add any views you wish to the 'veiws' directory, make sure these are '.erb' files, and not '.html'
+Instalar las dependencias de ruby
 
-### Styles, JS and images
-These should all be added to the 'public' directory, make sure you link them approriately to the templates in the view directory!
+```
+gem install bundler
+bundler install
+``` 
 
+En Linux, ejecutar el archivo `start_backend-sh`.
+
+En Windows, correr los comandos
+```
+ruby app.rb
+cd ./swagger 
+npm start
+```
+
+## Recrear las bases de datos
+Para recrear la base de datos implementada en el proyecto actual, ejecutar los scripts `DDL.sql` y `DML.sql` de la carpeta backup.
+
+## Comandos SQL utilizados en los querys
+
+![Diagrama SQL](diagrams/SQL_Statements.svg)
