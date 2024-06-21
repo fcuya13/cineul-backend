@@ -13,13 +13,14 @@ get '/salas' do
           id: funcion.id,
           nombre_pelicula: funcion.pelicula.titulo,
           time: funcion.fecha_hora,
+          imagen_url: funcion.pelicula.imagen_url,
         }
       end
 
       {
         id: sala.id,
-        titulo: sala.nombre,
-        sinopsis: sala.direccion,
+        nombre_sala: sala.nombre,
+        direccion: sala.direccion,
         imagen_url: sala.imagen_url,
         funciones: funciones  
       }.to_json

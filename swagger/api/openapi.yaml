@@ -4,7 +4,7 @@ info:
   description: Documentación de la API de Cine ULima - Progra Movil
   version: 1.0.0
 servers:
-- url: https://humble-disco-jx4w6xvvvxr25g59-4567.app.github.dev
+- url: http://localhost:4567 #https://humble-disco-jx4w6xvvvxr25g59-4567.app.github.dev
 tags:
 - name: auth
 - name: peliculas
