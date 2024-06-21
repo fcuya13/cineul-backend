@@ -34,3 +34,14 @@ get '/salas' do
     sala.to_json
   end
 end
+
+#NO LO BORRES -.-
+get '/salas_search' do
+  nombre = params['nombre']
+  if nombre
+    results = Sala.where(Sequel.ilike(:nombre, "%#{nombre}%")).all
+  else
+    results = Sala.all #SELECT * FROM salas
+  end
+  results.to_json
+end
