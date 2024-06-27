@@ -40,7 +40,8 @@ get '/peliculas' do
     peliculas = Pelicula.all.map do |pelicula|
       {
         id: pelicula.id,
-        imagen_url: pelicula.imagen_url
+        imagen_url: pelicula.imagen_url,
+        titulo: pelicula.titulo
       }
     end
 

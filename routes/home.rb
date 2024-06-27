@@ -1,7 +1,7 @@
 require 'sinatra'
 
 get '/home' do 
-    peliculas = Pelicula.all.map do |pelicula|
+    peliculas = Pelicula.all.take(4).map do |pelicula|
         {
           id: pelicula.id,
           titulo: pelicula.titulo,
