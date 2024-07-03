@@ -3,7 +3,7 @@ require 'sinatra'
 
 # Route to get movie information by ID or all movies
 get '/peliculas' do
-  content_type :json
+  content_type :json, charset: 'utf-8'
 
   # Check if a specific movie ID is provided as a query parameter
   if params[:id]
@@ -16,7 +16,7 @@ get '/peliculas' do
         {
           id: funcion.id,
           nombre_sala: funcion.sala.nombre,
-          time: funcion.fecha_hora,
+          time: funcion.fecha_hora.strftime("%Y-%m-%d %H:%M:%S"),
           # Add other relevant function details here
         }
       end
