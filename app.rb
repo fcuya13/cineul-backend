@@ -15,6 +15,7 @@ require_relative 'configs/models'
 Dir[File.join(__dir__, 'routes', '*.rb')].each { |file| require_relative file }
 
 before do
+  content_type :json, charset: 'utf-8'
   headers 'Access-Control-Allow-Origin' => '*',
           'Access-Control-Allow-Methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
           'Access-Control-Allow-Headers' => 'Content-Type'

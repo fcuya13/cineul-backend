@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 
 # Ruta para obtener el historial de compras de un usuario por ID
 get '/usuarios/historial/:id' do
@@ -10,16 +11,17 @@ get '/usuarios/historial/:id' do
     SELECT 
       r.idreserva AS reserva_id,
       p.titulo AS pelicula_titulo,
+      p.imagen_url AS pelicula_imagen,
       f.fecha_hora,
       s.nombre AS sala_nombre,
       s.direccion AS sala_direccion,
-      a.id as asiento_id,
+      a.id AS asiento_id,
       a.fila,
       a.columna,
       pr.nombre AS producto_nombre,
       cp.cantidad,
       pr.precio,
-      cp.cantidad * pr.precio AS total_producto
+      (cp.cantidad * pr.precio) AS total_producto
     FROM 
       reserva r
     LEFT JOIN entrada e ON r.idreserva = e.idreserva
@@ -39,13 +41,16 @@ get '/usuarios/historial/:id' do
   historial = resultados.group_by { |row| row[:reserva_id] }.map do |reserva_id, detalles|
     {
       reserva_id: reserva_id,
-      pelicula: detalles.first[:pelicula_titulo],
+      pelicula: {
+        titulo: detalles.first[:pelicula_titulo],
+        imagen: detalles.first[:pelicula_imagen]
+      },
       fecha_funcion: detalles.first[:fecha_hora],
       sala: {
         nombre: detalles.first[:sala_nombre],
         direccion: detalles.first[:sala_direccion]
       },
-      asientos: detalles.map { |d| {id: d[:asiento_id], fila: d[:fila], columna: d[:columna] } }.uniq,
+      asientos: detalles.map { |d| { id: d[:asiento_id], fila: d[:fila], columna: d[:columna] } }.uniq,
       productos: detalles.select { |d| d[:producto_nombre] }.map do |d|
         {
           nombre: d[:producto_nombre],
