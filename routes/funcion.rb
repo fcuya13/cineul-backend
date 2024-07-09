@@ -16,9 +16,10 @@ get '/funciones' do
       f.sala_id,
       f.fecha_hora,
       p.titulo AS pelicula_titulo,
+      p.imagen_url AS pelicula_imagen_url,  -- Añadimos la imagen_url de la película
       s.nombre AS sala_nombre,
       s.direccion AS sala_direccion,
-      s.imagen_url AS sala_imagen_url  -- Aquí añadimos la imagen_url de la sala
+      s.imagen_url AS sala_imagen_url  -- Añadimos la imagen_url de la sala
     FROM
       funciones f
     LEFT JOIN peliculas p ON f.pelicula_id = p.id
