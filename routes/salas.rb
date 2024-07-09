@@ -1,8 +1,9 @@
 require 'sinatra'
+require 'json'
 
-
+# Ruta para obtener las salas y las funciones correspondientes
 get '/salas' do
-  content_type :json
+  content_type 'application/json; charset=utf-8'
 
   if params[:id]
     sala = Sala[params[:id]]
@@ -31,17 +32,18 @@ get '/salas' do
   else
     sala = Sala.all
 
-    sala.to_json
+    sala.to_json(encoding: 'utf-8')
   end
 end
 
-#NO LO BORRES -.-
+# Ruta para buscar salas por nombre
 get '/salas_search' do
+  content_type 'application/json; charset=utf-8'
   nombre = params['nombre']
   if nombre
     results = Sala.where(Sequel.ilike(:nombre, "%#{nombre}%")).all
   else
     results = Sala.all #SELECT * FROM salas
   end
-  results.to_json
+  results.to_json(encoding: 'utf-8')
 end
